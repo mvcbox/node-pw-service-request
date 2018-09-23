@@ -8,16 +8,18 @@ const ConnectionLostError = require('./errors/ConnectionLostError');
  * @param {net.Socket} connection
  * @param {Buffer} data
  * @param {Function} packetParser
- * @param {number} waitPacketsNum
+ * @param {Object} options
  * @returns {Promise<Array>}
  */
-module.exports = function (connection, data, packetParser, waitPacketsNum, waitTimeout) {
+module.exports = function (connection, data, packetParser, options) {
+    options = options || {};
+
     return new Promise(function (resolve, reject) {
         let timeoutId = setTimeout(function () {
             connection.removeAllListeners();
             connection.end().unref();
-            reject(new WaitTimeoutError(`WaitTimeoutError: ${waitTimeout || 30000}ms`));
-        }, waitTimeout || 30000);
+            reject(new WaitTimeoutError(`WaitTimeoutError: ${options.waitTimeout || 3000}ms`));
+        }, options.waitTimeout || 3000);
 
         let result = [];
         connection.write(data);
@@ -37,7 +39,7 @@ module.exports = function (connection, data, packetParser, waitPacketsNum, waitT
         connection.on('data', function (chunk) {
             result = result.concat(packetParser(chunk));
 
-            if (result.length >= (waitPacketsNum || 1)) {
+            if (result.length >= (options.waitPacketsNum || 1)) {
                 clearTimeout(timeoutId);
                 connection.removeAllListeners();
                 resolve(result);

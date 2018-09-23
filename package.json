@@ -1,6 +1,6 @@
 {
   "name": "pw-service-request",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "PW service request",
   "main": "index.js",
   "scripts": {

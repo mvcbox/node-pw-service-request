@@ -5,17 +5,19 @@ const ConnectionTimeoutError = require('./errors/ConnectionTimeoutError');
 
 /**
  * @param {object} connectOptions
- * @param {number} connectionTimeout
+ * @param {Object} options
  * @returns {Promise<net.Socket>}
  */
-module.exports = function (connectOptions, connectionTimeout) {
+module.exports = function (connectOptions, options) {
+    options = options || {};
+
     return new Promise(function (resolve, reject) {
         let connection = net.createConnection(connectOptions);
         let timeoutId = setTimeout(function () {
             connection.removeAllListeners();
             connection.end().unref();
-            reject(new ConnectionTimeoutError(`ConnectionTimeoutError: ${connectionTimeout || 10000}ms`));
-        }, connectionTimeout || 10000);
+            reject(new ConnectionTimeoutError(`ConnectionTimeoutError: ${options.connectionTimeout || 1000}ms`));
+        }, options.connectionTimeout || 1000);
 
         connection.on('connect', function () {
             clearTimeout(timeoutId);
