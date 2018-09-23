@@ -6,13 +6,14 @@ const request = require('./request');
 
 /**
  * @param {Object} options
+ * @returns {function(*=, *=): Array}
  */
 module.exports = function (options) {
     options = options || {};
 
     /**
      * @param {Object} data
-     * @param {number} waitPacketsNum
+     * @param {Object} _options
      * @returns {Array}
      */
     return async function (data, _options) {
