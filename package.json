@@ -1,0 +1,27 @@
+{
+  "name": "pw-service-request",
+  "version": "1.0.0",
+  "description": "PW service request",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvcbox/node-pw-service-request.git"
+  },
+  "keywords": [
+    "PW",
+    "service",
+    "request"
+  ],
+  "author": "mvcbox.org@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mvcbox/node-pw-service-request/issues"
+  },
+  "homepage": "https://github.com/mvcbox/node-pw-service-request#readme",
+  "dependencies": {
+    "pw-buffer": "^0.2.3"
+  }
+}
